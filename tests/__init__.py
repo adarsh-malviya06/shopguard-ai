@@ -1,0 +1,1 @@
+"""ShopGuard Test Suite."""

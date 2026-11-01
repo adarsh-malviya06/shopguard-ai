@@ -1,0 +1,48 @@
+# Python Virtual Environment
+.venv/
+env/
+venv/
+ENV/
+*.pyvenv*
+
+# Python byte-code & caches
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.pytest_cache/
+.mypy_cache/
+.coverage
+htmlcov/
+
+# Environment Variables & Secrets
+.env
+.env.local
+.env.*.local
+*.secret
+*.key
+
+# Local Databases & Persistent Storage
+data/*.db
+data/chroma/
+data/chromadb/
+chroma_db/
+.chroma/
+*.sqlite3
+*.db
+
+# Logs & Audit trails
+logs/
+*.log
+*.jsonl
+
+# Build & Packaging
+build/
+dist/
+*.egg-info/
+
+# IDE & OS files
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
