@@ -95,7 +95,7 @@ def investigate_order(order_id: str, customer_id: str) -> dict:
         if latest_ts:
             hours_since = (now - latest_ts).total_seconds() / 3600
             event_type  = latest_event.get("event_type", "")
-            if event_type in ("DELAYED_HUB", "DELAYED") and hours_since > HUB_STUCK_THRESHOLD_HOURS:
+            if event_type == "DELAYED_HUB" and hours_since > HUB_STUCK_THRESHOLD_HOURS:
                 findings.append(
                     f"Shipment has been stuck at '{latest_event.get('location')}' "
                     f"for {int(hours_since)} hours (last event: {event_type})."

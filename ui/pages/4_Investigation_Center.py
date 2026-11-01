@@ -50,3 +50,4 @@ if run_btn and order_input:
 
             st.markdown("#### 💡 System Recommendation")
             st.info(f"**Action Recommended:** {result.get('recommendation', '').replace('_', ' ').title()}")
+

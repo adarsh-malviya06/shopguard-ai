@@ -239,15 +239,42 @@ def audit_logger_node(state: ShopGuardState) -> ShopGuardState:
 # --------------------------------------------------------------------------- #
 
 def _rule_to_action(matched_rule: str, message: str) -> str:
-    """Infer action name from router rule."""
-    if "cancel" in matched_rule or "cancel" in message.lower():
-        return "cancel_order"
-    if "refund" in matched_rule or "refund" in message.lower():
-        return "submit_refund_review_request"
-    if "return" in matched_rule or "return" in message.lower():
-        return "submit_return_request"
-    if "escalate" in matched_rule or "escalate" in message.lower():
-        return "escalate_to_support"
-    if "forbidden" in matched_rule or "transfer" in message.lower():
+    """Infer action name, prioritizing forbidden financial operations."""
+    import re
+
+    text = f"{matched_rule} {message}".lower()
+
+    # 1. Forbidden financial actions MUST be checked first.
+    transfer_patterns = [
+        r"\btransfer\b",
+        r"\bwire\s+(?:money|funds)\b",
+        r"\b(send|pay)\s+(?:the\s+)?(?:money|funds)\b",
+    ]
+
+    if any(re.search(pattern, text) for pattern in transfer_patterns):
+        return "transfer_money"
+
+    # 2. Actual financial refund execution is forbidden.
+    forbidden_refund_patterns = [
+        r"\bexecute\s+(?:an?\s+)?(?:financial\s+)?refund\b",
+        r"\bfinancial\s+refund\b",
+        r"\bmark\s+(?:the\s+)?refund\s+paid\b",
+    ]
+
+    if any(re.search(pattern, text) for pattern in forbidden_refund_patterns):
         return "execute_financial_refund"
+
+    # 3. Normal permitted actions are checked afterward.
+    if "cancel" in text:
+        return "cancel_order"
+
+    if "refund" in text or "reimburs" in text:
+        return "submit_refund_review_request"
+
+    if "return" in text:
+        return "submit_return_request"
+
+    if "escalate" in text or "complaint" in text:
+        return "escalate_to_support"
+
     return "unknown_action"

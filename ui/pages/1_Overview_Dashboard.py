@@ -82,3 +82,4 @@ with col_right:
         st.dataframe(df_cases[["case_id", "order_id", "issue_type", "severity", "status"]], use_container_width=True)
     else:
         st.info("No open escalation cases in database.")
+

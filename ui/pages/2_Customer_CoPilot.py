@@ -118,3 +118,4 @@ if user_input:
 
             except Exception as e:
                 st.error(f"Could not connect to ShopGuard Backend on port {settings.SHOPGUARD_PORT}: {e}")
+

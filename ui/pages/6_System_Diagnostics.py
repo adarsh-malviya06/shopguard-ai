@@ -77,3 +77,4 @@ if st.button("Clear Semantic Cache"):
                 st.rerun()
     except Exception as ex:
         st.error(f"Error clearing cache: {ex}")
+

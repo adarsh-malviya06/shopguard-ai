@@ -24,3 +24,4 @@ Write-Host "`nAll 3 services launched in background!" -ForegroundColor Yellow
 Write-Host "Dashboard: http://localhost:8501" -ForegroundColor Cyan
 Write-Host "Backend API: http://localhost:8010/docs" -ForegroundColor Cyan
 Write-Host "Simulator API: http://localhost:8002/docs" -ForegroundColor Cyan
+
